@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/api/v1/cliente")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -26,9 +26,15 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarOuBuscar(@RequestParam(required = false) String busca) {
-        if (busca != null && !busca.isBlank()) {
-            return ResponseEntity.ok(clienteService.buscarPorNomeOuCpf(busca));
+    public ResponseEntity<List<Cliente>> listarOuBuscar(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String cpf) {
+
+        if (cpf != null && !cpf.isBlank()) {
+            return ResponseEntity.ok(clienteService.buscarPorNomeOuCpf(cpf));
+        }
+        if (nome != null && !nome.isBlank()) {
+            return ResponseEntity.ok(clienteService.buscarPorNomeOuCpf(nome));
         }
         return ResponseEntity.ok(clienteService.listarTodos());
     }

@@ -7,17 +7,17 @@ public class ErrorResponse {
     private LocalDateTime timestamp;
     private int status;
     private String error;
-    private String message;
+    private String mensagem;
 
     public ErrorResponse(int status, String error, String message) {
         this.timestamp = LocalDateTime.now();
         this.status = status;
         this.error = error;
-        this.message = message;
+        this.mensagem = mensagem;
     }
 
     public LocalDateTime getTimestamp() { return timestamp; }
     public int getStatus() { return status; }
     public String getError() { return error; }
-    public String getMessage() { return message; }
+    public String getMessage() { return mensagem; }
 }

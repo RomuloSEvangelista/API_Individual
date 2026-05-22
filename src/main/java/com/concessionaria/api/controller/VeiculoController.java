@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/veiculos")
+@RequestMapping("/api/v1/veiculo") 
 public class VeiculoController {
 
     private final VeiculoService veiculoService;
@@ -26,9 +26,19 @@ public class VeiculoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Veiculo>> listarOuBuscar(@RequestParam(required = false) String busca) {
-        if (busca != null && !busca.isBlank()) {
-            return ResponseEntity.ok(veiculoService.buscarPorTermo(busca));
+    public ResponseEntity<List<Veiculo>> listarOuBuscar(
+            @RequestParam(required = false) String placa,
+            @RequestParam(required = false) String marca,
+            @RequestParam(required = false) String modelo) {
+
+        if (placa != null && !placa.isBlank()) {
+            return ResponseEntity.ok(veiculoService.buscarPorTermo(placa));
+        }
+        if (marca != null && !marca.isBlank()) {
+            return ResponseEntity.ok(veiculoService.buscarPorTermo(marca));
+        }
+        if (modelo != null && !modelo.isBlank()) {
+            return ResponseEntity.ok(veiculoService.buscarPorTermo(modelo));
         }
         return ResponseEntity.ok(veiculoService.listarTodos());
     }
